@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 function App() {
   interface FormData {
@@ -9,7 +9,7 @@ function App() {
     cost: number;
   }
   const [tableData, setTableData] = useState<FormData[]>([{name:'Room rent',cost:12000},{name:'Maintanance',cost:1200}]);
-  const [inputLength,setInputLength] =useState(0)
+  const [inputLength,setInputLength] =useState<number>()
   const [isSplit ,setSplit] =useState(false)
   const validationSchema = Yup.object({
     name: Yup.string().required("Required"),
@@ -146,7 +146,9 @@ function App() {
               <input
                 type="number"
                 className="border p-1 rounded-md border-black w-[20%]"
-                onChange={(e)=>setInputLength(e.target.value)
+                onChange={(e: ChangeEvent<HTMLInputElement>)=>{
+                  // let value = e.target.value
+                  setInputLength(e.target.value as any)}
                 }
               />
             </div>
